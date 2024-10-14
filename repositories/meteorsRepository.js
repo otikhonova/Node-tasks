@@ -1,4 +1,4 @@
-const axios = require('axios');
+const axios = require("axios");
 
 const getMeteorsInfo = async (startDate, endDate) => {
   const nasaToken = process.env.NASA_API_KEY;
