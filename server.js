@@ -1,12 +1,15 @@
 require('dotenv').config();
 const express = require('express');
 const meteorsRoute = require('./delivery/meteorsRoute');
+const globalErrorHandler = require('./errorHandler');
+const config = require('./config');
 
 const app = express();
-const PORT = 4000;
 
 app.use(meteorsRoute);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.use(globalErrorHandler);
+
+app.listen(config.port, () => {
+  console.log(`Server is running on port ${config.port}`);
 });
