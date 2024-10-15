@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const getMeteorsUseCase = require('../usecases/getMeteorsData');
+const getLatestRoverImage = require('../usecases/getLatestRoverImage');
 const stringToBoolean = require('../utils/booleanUtils');
 const { format } = require('date-fns');
+const config = require('../config');
 
 router.get('/meteors', async (req, res, next) => {
   try {
@@ -45,5 +47,18 @@ router.get('/meteors/html', async (req, res, next) => {
     next(error); 
   }
 });
+
+router.post('/latest-rover-image', async (req, res, next) => {
+  try {
+    const { userId, userName, userAPIKey } = req.body;
+
+    const imageData = await getLatestRoverImage({ userId, userName, userAPIKey });
+
+    res.json(imageData);
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 module.exports = router;

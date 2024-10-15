@@ -12,6 +12,8 @@ nunjucks.configure('views', {
   express: app
 });
 
+app.use(express.json());
+
 app.use(meteorsRoute);
 
 app.use(globalErrorHandler);
