@@ -1,4 +1,5 @@
 const getMeteorsInfo = require("../repositories/meteorsRepository");
+const Exception = require('../utils/Exception'); 
 
 const getMeteorsData = async (query) => {
   const { date, count, 'were-dangerous-meteors': wereDangerousMeteors } = query;
@@ -7,6 +8,10 @@ const getMeteorsData = async (query) => {
   const endDate = date;
 
   const meteorsData = await getMeteorsInfo(startDate, endDate);
+
+  if (!meteorsData) {
+    throw new Exception('Failed to fetch data from NASA API', 500);
+  }
 
   const filteredData = meteorsData.map((meteor) => {
     const diameter_meters = meteor.estimated_diameter?.meters?.estimated_diameter_max || 'unknown';
