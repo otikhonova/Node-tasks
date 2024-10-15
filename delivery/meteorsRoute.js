@@ -15,6 +15,10 @@ router.get('/meteors', async (req, res, next) => {
 
     const meteors = await getMeteorsUseCase({ date, count, wereDangerousMeteors });
 
+    if (!meteors || meteors.length === 0) {
+      throw new Exception('No meteors found for the provided date', 404);
+    }
+
     res.json(meteors);
   } catch (error) {
     next(error);
