@@ -1,12 +1,10 @@
 const getMeteorsInfo = require("../repositories/meteorsRepository");
-const { format } = require('date-fns');
 
-const getMeteors = async (query) => {
+const getMeteorsData = async (query) => {
   const { date, count, 'were-dangerous-meteors': wereDangerousMeteors } = query;
 
-  const queryDate = date || format(new Date(), 'yyyy-MM-dd');
-  const startDate = queryDate;
-  const endDate = queryDate;
+  const startDate = date;
+  const endDate = date;
 
   const meteorsData = await getMeteorsInfo(startDate, endDate);
 
@@ -26,11 +24,11 @@ const getMeteors = async (query) => {
     };
   });
 
-  if (count === 'true') {
+  if (count === true) {
     return { count: filteredData.length };
   }
 
-  if (wereDangerousMeteors === 'true') {
+  if (wereDangerousMeteors === true) {
     const dangerousMeteors = filteredData.filter(meteor => meteor.is_potentially_hazardous_asteroid);
     return { wereDangerousMeteors: dangerousMeteors.length > 0 };
   }
@@ -38,4 +36,4 @@ const getMeteors = async (query) => {
   return filteredData;
 };
 
-module.exports = getMeteors;
+module.exports = getMeteorsData;
