@@ -5,8 +5,11 @@ const getLatestRoverImage = require('../usecases/getLatestRoverImage');
 const stringToBoolean = require('../utils/booleanUtils');
 const { format } = require('date-fns');
 const config = require('../config');
+const validateRequest = require('../middlewares/validateRequest');
+const latestRoverImageSchema = require('../schemas/latestRoverImageSchema');
+const meteorsSchema = require('../schemas/meteorsSchema');
 
-router.get('/meteors', async (req, res, next) => {
+router.get('/meteors',  async (req, res, next) => {
   try {
     let { date, count, 'were-dangerous-meteors': wereDangerousMeteors } = req.query;
 
@@ -23,7 +26,7 @@ router.get('/meteors', async (req, res, next) => {
   }
 });
 
-router.get('/meteors/html', async (req, res, next) => {
+router.get('/meteors/html', validateRequest(meteorsSchema), async (req, res, next) => {
   try {
     let { date, count, 'were-dangerous-meteors': wereDangerousMeteors } = req.query;
 
@@ -40,7 +43,7 @@ router.get('/meteors/html', async (req, res, next) => {
   }
 });
 
-router.post('/latest-rover-image', async (req, res, next) => {
+router.post('/latest-rover-image', validateRequest(latestRoverImageSchema), async (req, res, next) => {
   try {
     const { userId, userName, userAPIKey } = req.body;
 
