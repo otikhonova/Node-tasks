@@ -1,6 +1,6 @@
-const axios = require('axios');
-const Exception = require('../utils/Exception');
-const config = require('../config');
+const axios = require("axios");
+const Exception = require("../utils/Exception");
+const config = require("../config");
 
 const getMeteorsInfo = async (startDate, endDate) => {
   try {
@@ -8,7 +8,7 @@ const getMeteorsInfo = async (startDate, endDate) => {
     const response = await axios.get(url);
     return response.data.near_earth_objects;
   } catch (error) {
-    throw new Exception('Error fetching data from NASA API', 502);
+    throw new Exception("Error fetching data from NASA API", 502);
   }
 };
 

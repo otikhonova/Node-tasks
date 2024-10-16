@@ -1,18 +1,20 @@
-require('dotenv').config();
-const nunjucks = require('nunjucks');
-const express = require('express');
-const meteorsRoute = require('./delivery/meteorsRoute');
-const globalErrorHandler = require('./errorHandler');
-const config = require('./config');
+require("dotenv").config();
+const nunjucks = require("nunjucks");
+const express = require("express");
+const meteorsRoute = require("./delivery/meteorsRoute");
+const globalErrorHandler = require("./errorHandler");
+const config = require("./config");
 
 const app = express();
 
-nunjucks.configure('views', {
+nunjucks.configure("views", {
   autoescape: true,
-  express: app
+  express: app,
 });
 
 app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
 
 app.use(meteorsRoute);
 
