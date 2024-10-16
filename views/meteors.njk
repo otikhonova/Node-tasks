@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Meteors Data</title>
+</head>
+<body>
+  <h1>Meteor Data for {{ date }}</h1>
+  <ul>
+    {% for meteor in meteors %}
+    <li>
+      <strong>Name:</strong> {{ meteor.name }}<br />
+      <strong>Diameter:</strong> {{ meteor.diameter_meters }} meters<br />
+      <strong>Hazardous:</strong> {{ meteor.is_potentially_hazardous_asteroid }}<br />
+      <strong>Close Approach Date:</strong> {{ meteor.close_approach_date_full }}<br />
+      <strong>Relative Velocity:</strong> {{ meteor.relative_velocity_kps }} km/s
+    </li>
+    {% else %}
+    <li>No meteors found.</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

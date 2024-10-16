@@ -9,11 +9,19 @@ const getMeteorsData = async (query) => {
 
   const meteorsData = await getMeteorsInfo(startDate, endDate);
 
+  console.log('meteorsData:', meteorsData);
+
   if (!meteorsData) {
     throw new Exception('Failed to fetch data from NASA API', 500);
   }
 
-  const filteredData = meteorsData.map((meteor) => {
+  const meteorsArray = meteorsData[startDate];
+  
+  if (!Array.isArray(meteorsArray)) {
+    throw new Exception('Expected an array of meteors, but received something else', 500);
+  }
+
+  const filteredData = meteorsArray.map((meteor) => {
     const diameter_meters = meteor.estimated_diameter?.meters?.estimated_diameter_max || 'unknown';
     const closeApproachData = meteor.close_approach_data?.[0] || {};
     const close_approach_date_full = closeApproachData.close_approach_date_full || 'unknown';

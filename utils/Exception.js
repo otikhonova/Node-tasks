@@ -4,3 +4,5 @@ class Exception extends Error {
       this.statusCode = statusCode;
     }
   }
+
+  module.exports = Exception;

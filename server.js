@@ -1,10 +1,18 @@
 require('dotenv').config();
+const nunjucks = require('nunjucks');
 const express = require('express');
 const meteorsRoute = require('./delivery/meteorsRoute');
 const globalErrorHandler = require('./errorHandler');
 const config = require('./config');
 
 const app = express();
+
+nunjucks.configure('views', {
+  autoescape: true,
+  express: app
+});
+
+app.use(express.json());
 
 app.use(meteorsRoute);
 
