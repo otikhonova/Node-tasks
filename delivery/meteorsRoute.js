@@ -43,17 +43,19 @@ router.get('/meteors/html', validateRequest(meteorsSchema), async (req, res, nex
   }
 });
 
+router.get('/latest-rover-image-form', (req, res) => {
+  res.render('roverForm.njk');
+});
+
 router.post('/latest-rover-image', validateRequest(latestRoverImageSchema), async (req, res, next) => {
   try {
     const { userId, userName, userAPIKey } = req.body;
-
+    
     const imageData = await getLatestRoverImage({ userId, userName, userAPIKey });
-
-    res.json(imageData);
+    res.render('roverImage.njk', { userId, userName, latestImage: imageData.latestImage });
   } catch (error) {
     next(error);
   }
 });
-
 
 module.exports = router;
