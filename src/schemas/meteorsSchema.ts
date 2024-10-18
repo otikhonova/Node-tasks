@@ -1,4 +1,4 @@
-const Joi = require("joi");
+import Joi from 'joi';
 
 const meteorsSchema = Joi.object({
   date: Joi.string().isoDate().optional(),
@@ -6,4 +6,4 @@ const meteorsSchema = Joi.object({
   "were-dangerous-meteors": Joi.boolean().optional(),
 });
 
-module.exports = meteorsSchema;
+export default meteorsSchema;

@@ -1,13 +1,20 @@
-const getMeteorsInfo = require("../repositories/meteorsRepository");
-const Exception = require("../utils/Exception");
+import getMeteorsInfo from '../repositories/meteorsRepository';
+import Exception from '../utils/Exception';
+import { Meteor } from '../interfaces/Meteor';
+import { MeteorQuery } from '../interfaces/MeteorQuery';
+import { MeteorResponse } from '../interfaces/MeteorResponse';
 
-const getMeteorsData = async (query) => {
+const getMeteorsData = async (query: MeteorQuery): Promise<any> => {
   const { date, count, "were-dangerous-meteors": wereDangerousMeteors } = query;
-
+  
+  if (!date) {
+    throw new Exception("Date is required", 400); // Или любое другое обработка
+  }
+  
   const startDate = date;
   const endDate = date;
 
-  const meteorsData = await getMeteorsInfo(startDate, endDate);
+  const meteorsData: Record<string, Meteor[]> | null = await getMeteorsInfo(startDate, endDate);
 
   console.log("meteorsData:", meteorsData);
 
@@ -18,13 +25,10 @@ const getMeteorsData = async (query) => {
   const meteorsArray = meteorsData[startDate];
 
   if (!Array.isArray(meteorsArray)) {
-    throw new Exception(
-      "Expected an array of meteors, but received something else",
-      500
-    );
+    throw new Exception("Expected an array of meteors, but received something else", 500);
   }
 
-  const filteredData = meteorsArray.map((meteor) => {
+  const filteredData = meteorsArray.map((meteor: Meteor): MeteorResponse => {
     const diameter_meters =
       meteor.estimated_diameter?.meters?.estimated_diameter_max || "unknown";
     const closeApproachData = meteor.close_approach_data?.[0] || {};
@@ -37,8 +41,7 @@ const getMeteorsData = async (query) => {
       id: meteor.id || "unknown",
       name: meteor.name || "unknown",
       diameter_meters,
-      is_potentially_hazardous_asteroid:
-        meteor.is_potentially_hazardous_asteroid || false,
+      is_potentially_hazardous_asteroid: meteor.is_potentially_hazardous_asteroid || false,
       close_approach_date_full,
       relative_velocity_kps,
     };
@@ -58,4 +61,4 @@ const getMeteorsData = async (query) => {
   return filteredData;
 };
 
-module.exports = getMeteorsData;
+export default getMeteorsData;
