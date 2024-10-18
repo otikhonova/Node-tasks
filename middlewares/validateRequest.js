@@ -11,3 +11,4 @@ const validateRequest = (schema) => (req, res, next) => {
 };
 
 module.exports = validateRequest;
+
