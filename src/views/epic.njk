@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EPIC Images</title>
+</head>
+<body>
+  <h1>EPIC Images</h1>
+  <ul>
+    {% for img in images %}
+    <li>{{ img.date }} - {{ img.image }}</li>
+    {% else %}
+    <li>No images found.</li>
+    {% endfor %}
+  </ul>
+  <a href="/">Back</a>
+</body>
+</html>

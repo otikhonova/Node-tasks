@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>APOD</title>
+</head>
+<body>
+  <h1>{{ data.title }}</h1>
+  {% if data.media_type == 'image' %}
+  <img src="{{ data.url }}" alt="{{ data.title }}">
+  {% else %}
+  <a href="{{ data.url }}">{{ data.url }}</a>
+  {% endif %}
+  <p>{{ data.explanation }}</p>
+  <a href="/">Back</a>
+</body>
+</html>

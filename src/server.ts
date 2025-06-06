@@ -1,6 +1,6 @@
 import express from 'express';
 import nunjucks from 'nunjucks';
-import meteorsRoute from './delivery/meteorsRoute';
+import nasaRoutes from './delivery/nasaRoutes';
 import globalErrorHandler from './errorHandler';
 import config from './config';
 
@@ -14,7 +14,7 @@ nunjucks.configure('views', {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(meteorsRoute);
+app.use(nasaRoutes);
 
 app.use(globalErrorHandler);
 

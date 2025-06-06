@@ -1,6 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express';
 import getMeteorsUseCase from '../usecases/getMeteorsData';
 import getLatestRoverImage from '../usecases/getLatestRoverImage';
+import getApod from '../usecases/getApod';
+import getEpicImages from '../usecases/getEpicImages';
+import getEonetEvents from '../usecases/getEonetEvents';
+import getDonkiNotifications from '../usecases/getDonkiNotifications';
+import searchNasaImages from '../usecases/searchNasaImages';
 import stringToBoolean from '../utils/booleanUtils';
 import { format } from 'date-fns';
 import config from '../config';
@@ -9,6 +14,10 @@ import latestRoverImageSchema from '../schemas/latestRoverImageSchema';
 import meteorsSchema from '../schemas/meteorsSchema';
 
 const router = express.Router();
+
+router.get('/', (req: Request, res: Response) => {
+  res.render('index.njk');
+});
 
 interface MeteorsQuery {
   date?: string;
@@ -87,5 +96,50 @@ router.post(
     }
   }
 );
+
+router.get('/apod', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const data = await getApod();
+    res.render('apod.njk', { data });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/epic', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const images = await getEpicImages();
+    res.render('epic.njk', { images });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/eonet', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const events = await getEonetEvents();
+    res.render('eonet.njk', { events });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/donki', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const notifications = await getDonkiNotifications();
+    res.render('donki.njk', { notifications });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/image-search', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const items = await searchNasaImages('moon');
+    res.render('imageSearch.njk', { items });
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default router;
