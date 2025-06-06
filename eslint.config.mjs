@@ -11,8 +11,11 @@ export default {
     "plugin:node/recommended",
     "plugin:promise/recommended",
     "plugin:security/recommended",
-    "plugin:import/recommended"
+    "plugin:import/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
+  parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint"],
   parserOptions: {
     ecmaVersion: 12,
   },
