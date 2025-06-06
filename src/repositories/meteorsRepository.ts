@@ -1,8 +1,12 @@
-const axios = require("axios");
-const Exception = require("../utils/Exception");
-const config = require("../config");
+import axios from 'axios';
+import Exception from '../utils/Exception';
+import config from '../config';
 
-const getMeteorsInfo = async (startDate, endDate) => {
+interface NearEarthObjects {
+  [key: string]: any;
+}
+
+const getMeteorsInfo = async (startDate: string, endDate: string): Promise<NearEarthObjects> => {
   try {
     const url = `${config.nasaApiUrl}?start_date=${startDate}&end_date=${endDate}&api_key=${config.nasaApiKey}`;
     const response = await axios.get(url);
@@ -12,4 +16,4 @@ const getMeteorsInfo = async (startDate, endDate) => {
   }
 };
 
-module.exports = getMeteorsInfo;
+export default getMeteorsInfo;

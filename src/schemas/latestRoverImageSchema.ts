@@ -1,4 +1,4 @@
-const Joi = require("joi");
+import Joi from 'joi';
 
 const latestRoverImageSchema = Joi.object({
   userId: Joi.string().required(),
@@ -6,4 +6,5 @@ const latestRoverImageSchema = Joi.object({
   userAPIKey: Joi.string().required(),
 });
 
-module.exports = latestRoverImageSchema;
+export default latestRoverImageSchema;
+
