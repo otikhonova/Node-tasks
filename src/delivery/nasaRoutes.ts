@@ -8,7 +8,6 @@ import getDonkiNotifications from '../usecases/getDonkiNotifications';
 import searchNasaImages from '../usecases/searchNasaImages';
 import stringToBoolean from '../utils/booleanUtils';
 import { format } from 'date-fns';
-import config from '../config';
 import validateRequest from '../middlewares/validateRequest';
 import latestRoverImageSchema from '../schemas/latestRoverImageSchema';
 import meteorsSchema from '../schemas/meteorsSchema';
