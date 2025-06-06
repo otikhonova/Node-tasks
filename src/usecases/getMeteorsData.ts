@@ -4,19 +4,22 @@ import { Meteor } from '../interfaces/Meteor';
 import { MeteorQuery } from '../interfaces/MeteorQuery';
 import { MeteorResponse } from '../interfaces/MeteorResponse';
 
-const getMeteorsData = async (query: MeteorQuery): Promise<any> => {
+const getMeteorsData = async (
+  query: MeteorQuery
+): Promise<{ count: number } | { wereDangerousMeteors: boolean } | MeteorResponse[]> => {
   const { date, count, "were-dangerous-meteors": wereDangerousMeteors } = query;
-  
+
   if (!date) {
-    throw new Exception("Date is required", 400); // Или любое другое обработка
+    throw new Exception("Date is required", 400);
   }
   
   const startDate = date;
   const endDate = date;
 
-  const meteorsData: Record<string, Meteor[]> | null = await getMeteorsInfo(startDate, endDate);
-
-  console.log("meteorsData:", meteorsData);
+  const meteorsData: Record<string, Meteor[]> | null = await getMeteorsInfo(
+    startDate,
+    endDate
+  );
 
   if (!meteorsData) {
     throw new Exception("Failed to fetch data from NASA API", 500);
