@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Space Weather</title>
+</head>
+<body>
+  <h1>DONKI Notifications</h1>
+  <ul>
+    {% for note in notifications %}
+    <li>{{ note.messageType }} - {{ note.messageID }}</li>
+    {% else %}
+    <li>No notifications.</li>
+    {% endfor %}
+  </ul>
+  <a href="/">Back</a>
+</body>
+</html>

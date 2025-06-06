@@ -28,9 +28,14 @@ Useful scripts are available for development:
 
 The application relies on the following variables:
 
-- `NASA_API_KEY` – your NASA API key for the Near Earth Objects feed.
+- `NASA_API_KEY` – your NASA API key.
 - `NASA_API_URL` – base URL for fetching meteor data.
 - `NASA_API_URL_PHOTOS` – base URL for retrieving the latest rover photos.
+- `NASA_API_URL_APOD` – Astronomy Picture of the Day endpoint.
+- `NASA_API_URL_EPIC` – EPIC imagery endpoint.
+- `NASA_API_URL_EONET` – Earth Observatory event endpoint.
+- `NASA_API_URL_DONKI` – DONKI space weather endpoint.
+- `NASA_API_URL_IMAGES` – NASA image search endpoint.
 - `PORT` – port number for the Express server (defaults to `4000`).
 
 Create a `.env` file or set these variables in your environment before starting the server.
@@ -43,6 +48,11 @@ Create a `.env` file or set these variables in your environment before starting 
 | GET    | `/meteors/html`           | Same as `/meteors` but renders an HTML page with the results. |
 | GET    | `/latest-rover-image-form`| Displays a form to request the latest Mars rover image. |
 | POST   | `/latest-rover-image`     | Accepts `userId`, `userName`, and `userAPIKey` in the body and shows the latest rover image. |
+| GET    | `/apod`                   | Shows the Astronomy Picture of the Day. |
+| GET    | `/epic`                   | Displays recent EPIC images. |
+| GET    | `/eonet`                  | Lists current natural events from EONET. |
+| GET    | `/donki`                  | Lists recent space weather notifications. |
+| GET    | `/image-search`           | Example NASA image search for "moon". |
 
 The server listens on the port specified by the `PORT` environment variable.
 

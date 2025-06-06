@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EONET Events</title>
+</head>
+<body>
+  <h1>EONET Events</h1>
+  <ul>
+    {% for event in events %}
+    <li>{{ event.title }}</li>
+    {% else %}
+    <li>No events found.</li>
+    {% endfor %}
+  </ul>
+  <a href="/">Back</a>
+</body>
+</html>
